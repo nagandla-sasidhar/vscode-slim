@@ -1,0 +1,117 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "SLIM",
+  "scopeName": "source.slim",
+  "fileTypes": ["slm"],
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#header_llm" },
+    { "include": "#header_plain" },
+    { "include": "#block_boundary" },
+    { "include": "#directive" },
+    { "include": "#schema_def" },
+    { "include": "#heading" },
+    { "include": "#variable" }
+  ],
+  "repository": {
+    "comment": {
+      "name": "comment.line.tilde.slim",
+      "match": "^~.*$"
+    },
+    "header_llm": {
+      "comment": "@+key: value — LLM-visible header",
+      "match": "^(@\\+)([a-z][a-z0-9_-]*)(:\\s*)(.*)",
+      "captures": {
+        "1": { "name": "keyword.operator.at-plus.slim" },
+        "2": { "name": "entity.name.tag.llm-header.slim" },
+        "3": { "name": "punctuation.separator.slim" },
+        "4": { "name": "string.unquoted.header-value.llm.slim" }
+      }
+    },
+    "header_plain": {
+      "comment": "@key: value — orchestrator-only header (stripped from LLM)",
+      "match": "^(@)([a-z][a-z0-9_-]*)(:\\s*)(.*)",
+      "captures": {
+        "1": { "name": "keyword.operator.at.slim" },
+        "2": { "name": "variable.language.header-key.slim" },
+        "3": { "name": "punctuation.separator.slim" },
+        "4": { "name": "comment.block.header-value.stripped.slim" }
+      }
+    },
+    "block_boundary": {
+      "patterns": [
+        {
+          "comment": "Block close: === /NAME",
+          "match": "^(===\\s+/)([A-Z][A-Z0-9_]*)(.*)$",
+          "captures": {
+            "1": { "name": "keyword.control.block.close.slim" },
+            "2": { "name": "entity.name.section.block.slim" },
+            "3": { "name": "comment.line.slim" }
+          }
+        },
+        {
+          "comment": "Block open: === NAME [type]",
+          "match": "^(===\\s+)([A-Z][A-Z0-9_]*)(\\s+\\[([^\\]]+)\\])?(.*)$",
+          "captures": {
+            "1": { "name": "keyword.control.block.open.slim" },
+            "2": { "name": "entity.name.section.block.slim" },
+            "3": { "name": "meta.block.type-tag.slim" },
+            "4": { "name": "storage.type.block.slim" }
+          }
+        }
+      ]
+    },
+    "directive": {
+      "comment": "> KEYWORD args",
+      "match": "^(>\\s+)(CALL|ASSERT|YIELD|EMIT|LOG|ABORT|WAIT|RETRY)(\\s+(.*))?$",
+      "captures": {
+        "1": { "name": "keyword.control.directive.arrow.slim" },
+        "2": { "name": "keyword.control.directive.keyword.slim" },
+        "3": { "name": "meta.directive.args.slim" },
+        "4": { "name": "variable.parameter.directive.slim" }
+      }
+    },
+    "schema_def": {
+      "comment": ":tool_name schema definition",
+      "match": "^(:[a-z][a-z0-9_-]*)\\s*$",
+      "captures": {
+        "1": { "name": "entity.name.function.schema.slim" }
+      }
+    },
+    "schema_property": {
+      "comment": "Schema property: name!: type = default",
+      "match": "^\\s+([a-z_][a-z0-9_]*)([!?]?)(:\\s*)(.+?)(?:\\s*=\\s*(.+))?$",
+      "captures": {
+        "1": { "name": "variable.other.property.slim" },
+        "2": { "name": "keyword.operator.required.slim" },
+        "3": { "name": "punctuation.separator.slim" },
+        "4": { "name": "storage.type.property.slim" },
+        "5": { "name": "constant.other.default.slim" }
+      }
+    },
+    "schema_return": {
+      "comment": "-> return_type",
+      "match": "^\\s+(->)\\s+(.+)$",
+      "captures": {
+        "1": { "name": "keyword.operator.return.slim" },
+        "2": { "name": "storage.type.return.slim" }
+      }
+    },
+    "heading": {
+      "comment": "Markdown-style headings in body",
+      "match": "^(#{1,6})\\s+(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.heading.slim" },
+        "2": { "name": "entity.name.section.heading.slim" }
+      }
+    },
+    "variable": {
+      "comment": "$variable reference",
+      "match": "\\$([a-zA-Z][a-zA-Z0-9_]*)(\\.[a-zA-Z0-9_.\\[\\]]*)?",
+      "captures": {
+        "1": { "name": "variable.other.interpolated.slim" },
+        "2": { "name": "variable.other.member.slim" }
+      }
+    }
+  }
+}

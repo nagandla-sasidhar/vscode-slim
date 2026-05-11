@@ -1,0 +1,76 @@
+{
+  "name": "slim-language",
+  "displayName": "SLIM — Structured LLM Instruction Markup",
+  "description": "Syntax highlighting, snippets, and language support for .slm files (Structured LLM Instruction Markup)",
+  "version": "1.0.0",
+  "publisher": "slim-format",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/slim-format/vscode-slim"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": ["slim", "slm", "llm", "ai", "prompt", "markdown", "agent"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "slim",
+        "aliases": ["SLIM", "slim", "Structured LLM Instruction Markup"],
+        "extensions": [".slm"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/slim-light.svg",
+          "dark":  "./icons/slim-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "slim",
+        "scopeName": "source.slim",
+        "path": "./syntaxes/slim.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "slim",
+        "path": "./snippets/slim.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[slim]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.wordWrap": "on"
+      }
+    },
+    "configuration": {
+      "title": "SLIM",
+      "properties": {
+        "slim.validate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable basic SLIM validation (unclosed blocks, malformed headers)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.0.0"
+  }
+}

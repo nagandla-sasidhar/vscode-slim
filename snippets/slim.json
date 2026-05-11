@@ -1,0 +1,129 @@
+{
+  "SLIM Header": {
+    "prefix": ["slim-header", "@slim"],
+    "body": [
+      "@slim: 1.0",
+      "@model: ${1:claude-opus-4-7}",
+      "@+${2:agent}: ${3:Assistant}",
+      ""
+    ],
+    "description": "SLIM document header with model and agent"
+  },
+
+  "SLIM Full Header": {
+    "prefix": "slim-full",
+    "body": [
+      "~ ${1:description}",
+      "@slim: 1.0",
+      "@model: ${2:claude-opus-4-7}",
+      "@retry: ${3:3}",
+      "@timeout: ${4:30}",
+      "@+agent: ${5:Agent}",
+      "@+task: ${6:task-id}",
+      ""
+    ],
+    "description": "Complete SLIM header with all common fields"
+  },
+
+  "SLIM Block": {
+    "prefix": ["===", "block"],
+    "body": [
+      "=== ${1:BLOCK_NAME}${2: [${3:type}]}",
+      "${4:content}",
+      "=== /${1:BLOCK_NAME}"
+    ],
+    "description": "Named SLIM block"
+  },
+
+  "SLIM Code Block": {
+    "prefix": "code-block",
+    "body": [
+      "=== ${1:CODE} [${2:python}]",
+      "${3}",
+      "=== /${1:CODE}"
+    ],
+    "description": "Typed code block"
+  },
+
+  "SLIM Directive CALL": {
+    "prefix": ["> CALL", "call"],
+    "body": "> CALL ${1:function}(${2:arg}: ${3:value})",
+    "description": "CALL directive"
+  },
+
+  "SLIM Directive ASSERT": {
+    "prefix": ["> ASSERT", "assert"],
+    "body": "> ASSERT $${1:result}.${2:field} == ${3:true}",
+    "description": "ASSERT directive"
+  },
+
+  "SLIM Directive YIELD": {
+    "prefix": ["> YIELD", "yield"],
+    "body": "> YIELD $${1:result}",
+    "description": "YIELD directive"
+  },
+
+  "SLIM Schema": {
+    "prefix": [":schema", ":tool"],
+    "body": [
+      ":${1:tool_name}",
+      "  desc: ${2:Tool description}",
+      "  ${3:param}!: ${4:str}",
+      "  ${5:option}?: ${6:bool} = ${7:false}",
+      "  -> ${8:result}: ${9:json}"
+    ],
+    "description": "SLIM schema / tool definition"
+  },
+
+  "SLIM Variable": {
+    "prefix": "$var",
+    "body": "\\$${1:variable}",
+    "description": "Variable reference"
+  },
+
+  "SLIM Comment": {
+    "prefix": "~",
+    "body": "~ ${1:comment}",
+    "description": "SLIM comment (stripped from LLM)"
+  },
+
+  "SLIM Agent Template": {
+    "prefix": "slim-agent",
+    "body": [
+      "~ Agent configuration",
+      "@slim: 1.0",
+      "@model: ${1:claude-opus-4-7}",
+      "@retry: 3",
+      "@+agent: ${2:AgentName}",
+      "@+task: ${3:task-id}",
+      "",
+      "# Role",
+      "You are $agent, ${4:role description}.",
+      "",
+      "# Instructions",
+      "- ${5:Instruction one}",
+      "- ${6:Instruction two}",
+      "",
+      "=== CONTEXT [${7:markdown}]",
+      "${8:context content}",
+      "=== /CONTEXT"
+    ],
+    "description": "Complete agent configuration template"
+  },
+
+  "SLIM Workflow Template": {
+    "prefix": "slim-workflow",
+    "body": [
+      "@slim: 1.0",
+      "@+task: ${1:task-id}",
+      "",
+      "# ${2:Workflow Name}",
+      "${3:Description}",
+      "",
+      "> CALL ${4:analyze}(input: $task)",
+      "> ASSERT $result.${5:passed} == true",
+      "> YIELD $result.${6:output}"
+    ],
+    "description": "Agent workflow with directives"
+  }
+}
