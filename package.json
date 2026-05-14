@@ -2,7 +2,7 @@
   "name": "slim-language",
   "displayName": "SLIM — Structured LLM Instruction Markup",
   "description": "Syntax highlighting, snippets, and language support for .slm files (Structured LLM Instruction Markup)",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "publisher": "slim-format",
   "license": "MIT",
   "icon": "icon.png",
@@ -59,7 +59,7 @@
         "slim.validate": {
           "type": "boolean",
           "default": true,
-          "description": "Enable basic SLIM validation (unclosed blocks, malformed headers)"
+          "description": "Enable basic SLIM validation (malformed headers, invalid sections)"
         }
       }
     }

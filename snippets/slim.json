@@ -2,7 +2,7 @@
   "SLIM Header": {
     "prefix": ["slim-header", "@slim"],
     "body": [
-      "@slim: 1.0",
+      "@slim: 2.0",
       "@model: ${1:claude-opus-4-7}",
       "@+${2:agent}: ${3:Assistant}",
       ""
@@ -14,7 +14,7 @@
     "prefix": "slim-full",
     "body": [
       "~ ${1:description}",
-      "@slim: 1.0",
+      "@slim: 2.0",
       "@model: ${2:claude-opus-4-7}",
       "@retry: ${3:3}",
       "@timeout: ${4:30}",
@@ -25,24 +25,31 @@
     "description": "Complete SLIM header with all common fields"
   },
 
-  "SLIM Block": {
-    "prefix": ["===", "block"],
+  "SLIM Section": {
+    "prefix": ["::", "section"],
     "body": [
-      "=== ${1:BLOCK_NAME}${2: [${3:type}]}",
-      "${4:content}",
-      "=== /${1:BLOCK_NAME}"
+      "::${1:SECTION_NAME}${2: ${3:type}}",
+      "${4:content}"
     ],
-    "description": "Named SLIM block"
+    "description": "Named SLIM section (v2 — no close tag)"
   },
 
-  "SLIM Code Block": {
-    "prefix": "code-block",
+  "SLIM Nested Section": {
+    "prefix": [":::", "nested-section"],
     "body": [
-      "=== ${1:CODE} [${2:python}]",
-      "${3}",
-      "=== /${1:CODE}"
+      ":::${1:NESTED_NAME}${2: ${3:type}}",
+      "${4:content}"
     ],
-    "description": "Typed code block"
+    "description": "Nested SLIM section"
+  },
+
+  "SLIM Code Section": {
+    "prefix": "code-section",
+    "body": [
+      "::${1:CODE} ${2:python}",
+      "${3}"
+    ],
+    "description": "Typed code section"
   },
 
   "SLIM Directive CALL": {
@@ -91,7 +98,7 @@
     "prefix": "slim-agent",
     "body": [
       "~ Agent configuration",
-      "@slim: 1.0",
+      "@slim: 2.0",
       "@model: ${1:claude-opus-4-7}",
       "@retry: 3",
       "@+agent: ${2:AgentName}",
@@ -104,9 +111,8 @@
       "- ${5:Instruction one}",
       "- ${6:Instruction two}",
       "",
-      "=== CONTEXT [${7:markdown}]",
-      "${8:context content}",
-      "=== /CONTEXT"
+      "::CONTEXT ${7:markdown}",
+      "${8:context content}"
     ],
     "description": "Complete agent configuration template"
   },
@@ -114,7 +120,7 @@
   "SLIM Workflow Template": {
     "prefix": "slim-workflow",
     "body": [
-      "@slim: 1.0",
+      "@slim: 2.0",
       "@+task: ${1:task-id}",
       "",
       "# ${2:Workflow Name}",
