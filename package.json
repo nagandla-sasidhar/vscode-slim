@@ -5,7 +5,6 @@
   "version": "2.0.0",
   "publisher": "slim-format",
   "license": "MIT",
-  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/nagandla-sasidhar/vscode-slim"
@@ -19,18 +18,13 @@
   ],
   "keywords": ["slim", "slm", "llm", "ai", "prompt", "markdown", "agent"],
   "activationEvents": [],
-  "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
         "id": "slim",
         "aliases": ["SLIM", "slim", "Structured LLM Instruction Markup"],
         "extensions": [".slm"],
-        "configuration": "./language-configuration.json",
-        "icon": {
-          "light": "./icons/slim-light.svg",
-          "dark":  "./icons/slim-dark.svg"
-        }
+        "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
@@ -65,12 +59,6 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.75.0",
-    "typescript": "^5.0.0"
+    "package": "vsce package"
   }
 }
