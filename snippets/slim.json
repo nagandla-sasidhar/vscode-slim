@@ -13,13 +13,12 @@
   "SLIM Full Header": {
     "prefix": "slim-full",
     "body": [
-      "~ ${1:description}",
       "@slim: 2.0",
-      "@model: ${2:claude-opus-4-7}",
-      "@retry: ${3:3}",
-      "@timeout: ${4:30}",
-      "@+agent: ${5:Agent}",
-      "@+task: ${6:task-id}",
+      "@model: ${1:claude-opus-4-7}",
+      "@retry: ${2:3}",
+      "@timeout: ${3:30}",
+      "@+name: ${4:Agent}",
+      "@+purpose: ${5:description}",
       ""
     ],
     "description": "Complete SLIM header with all common fields"
@@ -97,24 +96,23 @@
   "SLIM Agent Template": {
     "prefix": "slim-agent",
     "body": [
-      "~ Agent configuration",
       "@slim: 2.0",
       "@model: ${1:claude-opus-4-7}",
       "@retry: 3",
-      "@+agent: ${2:AgentName}",
-      "@+task: ${3:task-id}",
+      "@+name: ${2:AgentName}",
+      "@+purpose: ${3:purpose description}",
       "",
-      "# Role",
-      "You are $agent, ${4:role description}.",
+      "::ROLE",
+      "You are ${2:AgentName}, ${4:role description}.",
       "",
-      "# Instructions",
-      "- ${5:Instruction one}",
-      "- ${6:Instruction two}",
+      "::INSTRUCTIONS",
+      "${5:Instruction one}",
+      "${6:Instruction two}",
       "",
       "::CONTEXT ${7:markdown}",
       "${8:context content}"
     ],
-    "description": "Complete agent configuration template"
+    "description": "Complete agent configuration template (SLIM v2)"
   },
 
   "SLIM Workflow Template": {

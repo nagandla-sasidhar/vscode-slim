@@ -1,6 +1,6 @@
 # SLIM Language — VSCode Extension
 
-Syntax highlighting, code folding, and snippets for `.slm` files (Structured LLM Instruction Markup).
+Syntax highlighting, code folding, and snippets for `.slm` files (Structured LLM Instruction Markup v2.0).
 
 ## Install
 
@@ -8,8 +8,8 @@ Syntax highlighting, code folding, and snippets for `.slm` files (Structured LLM
 ```bash
 npm install -g @vscode/vsce
 cd vscode-slim
-vsce package          # produces slim-language-1.0.0.vsix
-code --install-extension slim-language-1.0.0.vsix
+vsce package          # produces slim-language-2.0.0.vsix
+code --install-extension slim-language-2.0.0.vsix
 ```
 
 ### From VS Marketplace
@@ -22,7 +22,8 @@ Search **"SLIM Language"** in the Extensions panel once published.
 | `@key: value` | Grey — orchestrator-only, stripped from LLM |
 | `@+key: value` | Teal — LLM-visible header |
 | `~ comment` | Green italic — stripped from LLM |
-| `=== BLOCK [type]` | Purple bold — block boundary |
+| `::SECTION_NAME type` | Purple bold — named section |
+| `:::NESTED_NAME type` | Purple — nested section |
 | `> CALL args` | Yellow — directive |
 | `$var` | Orange — variable reference |
 | `:schema_name` | Green — schema definition |
@@ -32,28 +33,35 @@ Search **"SLIM Language"** in the Extensions panel once published.
 
 | Prefix | Expands to |
 |---|---|
-| `slim-header` | Basic `@slim: 1.0` header |
+| `slim-header` | Basic `@slim: 2.0` header |
 | `slim-full` | Full header with model/retry/agent/task |
 | `slim-agent` | Complete agent config template |
 | `slim-workflow` | Workflow template with directives |
-| `===` | Named block |
+| `::` | Named section |
+| `:::` | Nested section |
 | `> CALL` | CALL directive |
 | `:tool` | Schema definition |
 
 ## SLIM Quick Reference
 
 ```
-@slim: 1.0          ← required first header
+@slim: 2.0          ← required first line
 @model: claude-...  ← stripped from LLM (orchestrator only)
-@+agent: Bot        ← sent to LLM + available as $agent
+@+name: Bot         ← LLM-visible header
 
 ~ This is a comment (stripped)
 
-# Section Heading
+::ROLE
+You are a helpful assistant.
 
-=== CODE [python]
+::INSTRUCTIONS
+Follow these rules carefully.
+
+::CODE_1 python
 def foo(): pass
-=== /CODE
+
+::CONTEXT markdown
+Background information here.
 
 > CALL analyze(x: $input)
 > ASSERT $result.ok == true
