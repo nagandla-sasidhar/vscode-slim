@@ -5,6 +5,7 @@
   "version": "2.0.0",
   "publisher": "slim-format",
   "license": "MIT",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/nagandla-sasidhar/vscode-slim"
