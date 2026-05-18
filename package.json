@@ -18,7 +18,6 @@
     "Snippets"
   ],
   "keywords": ["slim", "slm", "llm", "ai", "prompt", "markdown", "agent"],
-  "activationEvents": [],
   "contributes": {
     "languages": [
       {
