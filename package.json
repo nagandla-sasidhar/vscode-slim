@@ -2,7 +2,7 @@
   "name": "slim-language",
   "displayName": "SLIM — Structured LLM Instruction Markup",
   "description": "Syntax highlighting, snippets, and language support for .slm files (Structured LLM Instruction Markup)",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "publisher": "slim-format",
   "license": "MIT",
   "icon": "icon.png",
@@ -11,11 +11,12 @@
     "url": "https://github.com/nagandla-sasidhar/vscode-slim"
   },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Programming Languages",
-    "Snippets"
+    "Snippets",
+    "AI"
   ],
   "keywords": ["slim", "slm", "llm", "ai", "prompt", "markdown", "agent"],
   "contributes": {
@@ -56,9 +57,28 @@
           "description": "Enable basic SLIM validation (malformed headers, invalid sections)"
         }
       }
-    }
+    },
+    "chatParticipants": [
+      {
+        "id": "slim.chat",
+        "fullName": "SLIM Format",
+        "name": "slim",
+        "description": "Convert Markdown, YAML or JSON to SLIM format — save ~43% LLM tokens",
+        "isSticky": false,
+        "commands": [
+          { "name": "convert", "description": "Convert text to SLIM format" },
+          { "name": "validate", "description": "Validate a .slm file" }
+        ]
+      }
+    ]
   },
   "scripts": {
-    "package": "vsce package"
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.0.0"
   }
 }
